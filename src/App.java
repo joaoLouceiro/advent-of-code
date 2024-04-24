@@ -4,6 +4,6 @@ public class App {
     public static void main(String[] args) throws Exception {
         System.out.println("Hello, World!");
         Day01 d = new Day01();
-        d.run();
+        System.out.println(d.run());
     }
 }
