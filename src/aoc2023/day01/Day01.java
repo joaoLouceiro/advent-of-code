@@ -1,4 +1,4 @@
-package day01;
+package aoc2023.day01;
 
 import java.io.File;
 import java.io.FileNotFoundException;
@@ -8,12 +8,14 @@ import java.util.Scanner;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
-public class Day01 {
+import aoc2023.SuperDay;
+
+public class Day01 extends SuperDay{
 	private static Map<String, Integer> mp = new HashMap<String, Integer>();
 
-	public int run() throws FileNotFoundException {
+	public void run() throws FileNotFoundException {
 
-		File file = new File("./src/day01/Input.txt");
+		File file = new File("./src/aoc2023/day01/Input.txt");
 		Scanner sc = new Scanner(file);
 		mp.put("one", 1);
 		mp.put("two", 2);
@@ -43,8 +45,8 @@ public class Day01 {
 		}
 
 		sc.close();
+		System.out.println(total);
 
-		return total;
 	}
 
 	static int getValue(String s) {
