@@ -12,6 +12,8 @@ import aoc2023.SuperDay;
 
 public class Day02 extends SuperDay {
     private static Map<String, Integer> map = new HashMap<>();
+    private static Pattern outRegex = Pattern.compile("(?:Game\\s(\\d+))|(\\d.+?(;|$))");
+    private static Pattern inRegex = Pattern.compile("(\\d+)\\s(\\w+)");
     static {
         map.put("red", 12);
         map.put("green", 13);
@@ -19,11 +21,13 @@ public class Day02 extends SuperDay {
     }
 
     public void run() throws FileNotFoundException {
+        part1();
+        part2();
+    }
 
+    private void part1() throws FileNotFoundException {
         File file = new File("./src/aoc2023/day02/files/Input.txt");
         Scanner sc = new Scanner(file);
-        Pattern outRegex = Pattern.compile("(?:Game\\s(\\d+))|(\\d.+?(;|$))");
-        Pattern inRegex = Pattern.compile("(\\d+)\\s(\\w+)");
         int total = 0;
         while (sc.hasNextLine()) {
             String gString = sc.nextLine();
@@ -44,8 +48,48 @@ public class Day02 extends SuperDay {
             if (flag)
                 total += gameNum;
         }
-        System.out.println(total);
+        System.out.println("Part 1: " + total);
         sc.close();
+    }
+
+    private void part2() throws FileNotFoundException {
+        File file = new File("./src/aoc2023/day02/files/Input.txt");
+        Scanner sc = new Scanner(file);
+        int total = 0;
+        while (sc.hasNextLine()) {
+            String gString = sc.nextLine();
+            Matcher m = outRegex.matcher(gString);
+            m.find();
+            int minRed = 0;
+            int minGreen = 0;
+            int minBlue = 0;
+            while (m.find()) {
+                String s = m.group(2);
+                Matcher inMatcher = inRegex.matcher(s);
+                while (inMatcher.find()) {
+                    String cubeColor = inMatcher.group(2);
+                    int cubesNumber = Integer.valueOf(inMatcher.group(1));
+                    switch (cubeColor) {
+                        case "red":
+                            if (minRed < cubesNumber)
+                                minRed = cubesNumber;
+                            break;
+                        case "green":
+                            if (minGreen < cubesNumber)
+                                minGreen = cubesNumber;
+                            break;
+                        case "blue":
+                            if (minBlue < cubesNumber)
+                                minBlue = cubesNumber;
+                            break;
+                    }
+                }
+            }
+            total += (minRed * minBlue * minGreen);
+        }
+        System.out.println("Part 2: " + total);
+        sc.close();
+
     }
 
 }
