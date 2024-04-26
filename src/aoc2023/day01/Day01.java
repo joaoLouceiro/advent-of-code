@@ -15,7 +15,7 @@ public class Day01 extends SuperDay{
 
 	public void run() throws FileNotFoundException {
 
-		File file = new File("./src/aoc2023/day01/Input.txt");
+		File file = new File("./src/aoc2023/day01/files/Input.txt");
 		Scanner sc = new Scanner(file);
 		mp.put("one", 1);
 		mp.put("two", 2);
