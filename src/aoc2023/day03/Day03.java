@@ -16,7 +16,8 @@ public class Day03 extends SuperDay {
     public void run() throws FileNotFoundException {
         File file = new File("./src/aoc2023/day03/files/Input.txt");
         Scanner sc = new Scanner(file);
-        System.out.println(part1(sc));
+     // System.out.println(part1(sc));
+        System.out.println(part2(sc));
         sc.close();
     }
 
@@ -39,13 +40,12 @@ public class Day03 extends SuperDay {
                 } else {
                     symbolList.add(new Symbol(m.start(), y));
                 }
-                System.out.println(group + "\tStart: " + m.start() + " End: " + (m.end() - 1));
             }
             y++;
         }
-        /* 
-         * Horrible performance... O(n) + O(n²) or something 
-        */
+        /*
+         * Horrible performance... O(n) + O(n²) or something
+         */
         for (Number n : numberList) {
             for (Symbol s : symbolList) {
                 if (s.getY() > n.getStart()[1] + 1) {
@@ -53,7 +53,6 @@ public class Day03 extends SuperDay {
                 }
                 if (s.getX() >= n.getStart()[0] - 1 && s.getX() <= n.getEnd()[0] + 1
                         && s.getY() >= n.getStart()[1] - 1 && s.getY() <= n.getStart()[1] + 1) {
-                            System.out.println(n.getValue());
                     total += n.getValue();
                 }
             }
@@ -61,4 +60,52 @@ public class Day03 extends SuperDay {
         return total;
     }
 
+    private long part2(Scanner sc) {
+        Pattern p = Pattern.compile("\\d+|\\*");
+        Matcher m;
+        long total = 0;
+        int y = 0;
+
+        List<Number> numberList = new ArrayList<>();
+        List<Symbol> symbolList = new ArrayList<>();
+        while (sc.hasNextLine()) {
+            String s = sc.nextLine();
+            m = p.matcher(s);
+            while (m.find()) {
+                String group = m.group(0);
+                if (group.matches("\\d+")) {
+                    int[] start = { m.start(), y };
+                    int[] end = { m.end() - 1, y };
+                    numberList.add(new Number(start, end, Integer.valueOf(group)));
+                } else {
+                    symbolList.add(new Symbol(m.start(), y));
+                }
+            }
+            y++;
+        }
+        for (Symbol s : symbolList) {
+            int n1 = 1;
+            int n2 = 1;
+            for (Number n : numberList) {
+                int numberY = n.getStart()[1];
+                int minX = n.getStart()[0];
+                if (numberY > s.getY() + 1)
+                    break;
+                if (minX > s.getX() + 1)
+                    continue;
+                int maxX = n.getEnd()[0];
+                if ((numberY >= s.getY() - 1 && numberY <= s.getY() + 1)
+                        && (s.getX() >= minX - 1 && s.getX() <= maxX + 1)) {
+                    if (n1 == 1) {
+                        n1 = n.getValue();
+                    } else {
+                        n2 = n.getValue();
+                    }
+                }
+            }
+            total += (n1 > 1 && n2 > 1) ? n1 * n2 : 0;
+        }
+
+        return total;
+    }
 }
