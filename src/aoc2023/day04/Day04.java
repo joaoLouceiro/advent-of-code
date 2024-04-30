@@ -55,7 +55,6 @@ public class Day04 extends SuperDay {
     private void part2() throws FileNotFoundException {
         File file = new File("./src/aoc2023/day04/files/Input.txt");
         Scanner sc = new Scanner(file);
-        int total = 0;
         while (sc.hasNextLine()) {
             String s = sc.nextLine();
             scratchList.add(s);
@@ -69,15 +68,13 @@ public class Day04 extends SuperDay {
         for (int i = begin; i < end; i++) {
             p2Total += 1;
             String s = scratchList.get(i);
-            System.out.println(s);
             Matcher m = p.matcher(s);
             Map<String, Boolean> map = new HashMap<String, Boolean>();
             m.find();
             int gameTotal = 0;
             for (int j = 0; m.find(); j++) {
                 String gString = m.group(0);
-                
-                if (gString != null && j < 5) {
+                if (gString != null && j < 10) {
                     map.put(gString, true);
                 } else {
                     if (map.get(gString) != null) {
@@ -85,7 +82,6 @@ public class Day04 extends SuperDay {
                     }
                 }
             }
-            System.out.println("Game total: " + gameTotal + "\tTotal: " + p2Total);
             if (gameTotal > 0) {
                 checkScratch(i + 1, i + 1 + gameTotal);
             }
