@@ -15,12 +15,39 @@ public class Day05 extends SuperDay {
     @Override
     public void run() throws FileNotFoundException {
         Scanner sc = new Scanner(new File("./src/aoc2023/day05/files/Input.txt"));
+        part2(sc);
+    }
 
+    private void part1(Scanner sc) {
         // Get the array of seeds from the first line of the input file
         long[] seeds = getNumbersFromString(sc.nextLine().split(": ")[1]);
         buildAlmanac(sc);
         System.out.println(getMinLocation(seeds));
         sc.close();
+    }
+
+    private void part2(Scanner sc) {
+        // Get the array of seeds from the first line of the input file
+        long[][] seedArray = buildSeedRangeArray(getNumbersFromString(sc.nextLine().split(": ")[1]));
+        buildAlmanac(sc);
+        long min = Long.MAX_VALUE;
+        for (long[] seedRange : seedArray) {
+            long seedLocation = 0;
+            for (long i = seedRange[0]; i < seedRange[0] + seedRange[1]; i++) {
+                seedLocation = getSeedLocation(i);
+                min = Math.min(min, seedLocation);
+            }
+        }
+        System.out.println(min);
+        sc.close();
+    }
+
+    private long[][] buildSeedRangeArray(long[] seeds) {
+        long[][] seedRangeArray = new long[seeds.length / 2][2];
+        for (int i = 0; i < seeds.length; i++) {
+            seedRangeArray[i / 2][i % 2] = seeds[i];
+        }
+        return seedRangeArray;
     }
 
     private void buildAlmanac(Scanner sc) {
