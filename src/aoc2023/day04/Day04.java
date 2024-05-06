@@ -10,9 +10,9 @@ import java.util.Scanner;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
-import aoc2023.SuperDay;
+import aoc2023.Calendar;
 
-public class Day04 extends SuperDay {
+public class Day04 extends Calendar {
 
     
     private static File file = new File("./src/aoc2023/day04/files/Input.txt");

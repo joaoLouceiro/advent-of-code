@@ -8,9 +8,9 @@ import java.util.Scanner;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
-import aoc2023.SuperDay;
+import aoc2023.Calendar;
 
-public class Day01 extends SuperDay{
+public class Day01 extends Calendar{
 	private static Map<String, Integer> mp = new HashMap<String, Integer>();
 
 	public void run() throws FileNotFoundException {

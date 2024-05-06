@@ -1,4 +1,4 @@
-package aoc2023.day05.files;
+package aoc2023.day05;
 
 import java.io.File;
 import java.io.FileNotFoundException;
@@ -6,9 +6,9 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
 
-import aoc2023.SuperDay;
+import aoc2023.Calendar;
 
-public class Day05 extends SuperDay {
+public class Day05 extends Calendar{
 
     private List<List<long[]>> almanac = new ArrayList<>();
 
