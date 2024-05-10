@@ -8,9 +8,9 @@ import java.util.Scanner;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
-import aoc2023.SuperDay;
+import aoc2023.Calendar;
 
-public class Day03 extends SuperDay {
+public class Day03 extends Calendar {
 
     @Override
     public void run() throws FileNotFoundException {

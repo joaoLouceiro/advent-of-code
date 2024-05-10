@@ -8,9 +8,9 @@ import java.util.Scanner;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
-import aoc2023.SuperDay;
+import aoc2023.Calendar;
 
-public class Day02 extends SuperDay {
+public class Day02 extends Calendar {
     private static Map<String, Integer> map = new HashMap<>();
     private static Pattern outRegex = Pattern.compile("(?:Game\\s(\\d+))|(\\d.+?(;|$))");
     private static Pattern inRegex = Pattern.compile("(\\d+)\\s(\\w+)");
