@@ -44,28 +44,28 @@ public class Day07 extends Calendar {
 
   @Override
   public void run() throws FileNotFoundException {
+    System.out.println();
     long startRun = System.currentTimeMillis();
     Scanner sc = super.getScanner(filename);
     Map<Integer, ArrayList<HandBidMap>> rankedHandMap = buildRankedHandMap(sc);
     List<HandBidMap> mergeList = getSortedHandList(rankedHandMap);
 
-    sc.close();
     System.out.println("Answer:\t" + getTotalBids(mergeList));
     System.out.println("Time:\t" + (System.currentTimeMillis() - startRun));
+    sc.close();
   }
 
   private long getTotalBids(List<HandBidMap> mergeList) {
     long total = 0;
     for (int i = 0; i < mergeList.size(); i++) {
-      System.out.println(mergeList.get(i));
       total += (i + 1) * mergeList.get(i).getBid();
+      System.out.println(i + "\t" + mergeList.get(i) + "\t" + total);
     }
     return total;
   }
 
   private List<HandBidMap> getSortedHandList(Map<Integer, ArrayList<HandBidMap>> rankedHandMap) {
     List<HandBidMap> mergeList = new ArrayList<>();
-    // sortHandsInRange(rankedHandMap.get(80), 0, rankedHandMap.get(80).size(),0);
     rankedHandMap.forEach((k, v) -> {
       sortHandsInRange(v, 0, v.size(), 0);
       mergeList.addAll(v);
@@ -73,7 +73,10 @@ public class Day07 extends Calendar {
     return mergeList;
   }
 
-  private List<HandBidMap> sortHandsInRange(List<HandBidMap> list, int start, int end, int charIndex) {
+  private List<HandBidMap> sortHandsInRange(List<HandBidMap> list,
+      int start,
+      int end,
+      int charIndex) {
     List<HandBidMap> newList = list.subList(start, end);
     newList.sort((a, b) -> {
       return cardValueMap.get(a.getKey().charAt(charIndex)) - cardValueMap.get(b.getKey().charAt(charIndex));
@@ -86,24 +89,27 @@ public class Day07 extends Calendar {
     // if ai == ai + n, rStart = i, rEnd = i + n
     if (charIndex < list.get(0).getKey().length() - 1) {
 
-      int repeatingIndexStart = start;
       boolean isRepeatedCard = false;
 
-      for (int i = start + 1; i <= end && i < list.size(); i++) {
+      for (int i = start + 1; i < end && i < list.size(); i++) {
 
         char prevHandCard = list.get(i - 1).getKey().charAt(charIndex);
         char currHandCard = list.get(i).getKey().charAt(charIndex);
 
         if (prevHandCard == currHandCard && !isRepeatedCard) {
           isRepeatedCard = true;
-          repeatingIndexStart = i - 1;
+          start = i - 1;
         }
 
-        if ((i == end
-            || prevHandCard != currHandCard) && isRepeatedCard) {
+        if (isRepeatedCard && (prevHandCard != currHandCard || i == end - 1)) {
+          int rEnd = i;
+          if (prevHandCard == currHandCard && i == end - 1) {
+            rEnd = end;
+          }
+          sortHandsInRange(list, start, rEnd, charIndex + 1);
           isRepeatedCard = false;
-          sortHandsInRange(list, repeatingIndexStart, i, charIndex + 1);
         }
+
       }
     }
 
