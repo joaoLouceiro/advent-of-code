@@ -6,9 +6,9 @@ import java.util.Scanner;
 
 public abstract class Calendar {
 
-    public abstract void run() throws FileNotFoundException;
+  public abstract void run() throws FileNotFoundException;
 
-    protected Scanner getScanner(String filename) throws FileNotFoundException {
-        return new Scanner(new File(filename));
-    }
+  protected Scanner getScanner(String filename) throws FileNotFoundException {
+    return new Scanner(new File(filename));
+  }
 }

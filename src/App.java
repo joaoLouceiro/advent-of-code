@@ -9,13 +9,14 @@ import aoc2023.day03.Day03;
 import aoc2023.day04.Day04;
 import aoc2023.day05.Day05;
 import aoc2023.day06.Day06;
+import aoc2023.day07.Day07;
 
 public class App {
   public static void main(String[] args) throws Exception {
-    Scanner sc = new Scanner(System.in);
-    pseudoDayFactory(6).run();
+    // Scanner sc = new Scanner(System.in);
+    pseudoDayFactory(7).run();
     // gameLoop(sc);
-    sc.close();
+    // sc.close();
   }
 
   private static void gameLoop(Scanner sc) throws FileNotFoundException {
@@ -46,6 +47,8 @@ public class App {
         return new Day05();
       case 6:
         return new Day06();
+      case 7:
+        return new Day07();
       default:
         return new NoDay();
     }
