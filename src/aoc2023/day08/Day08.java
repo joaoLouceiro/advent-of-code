@@ -13,27 +13,36 @@ import aoc2023.Calendar;
 
 public class Day08 extends Calendar {
 
-  private String filename = "./src/aoc2023/day08/files/Input_test.txt";
+  private String filename = "./src/aoc2023/day08/files/Input.txt";
   private String moveList = "";
-  private List<Map<String, String[]>> gameMap = new ArrayList<Map<String, String[]>>();
+  private Map<String, String[]> gameMap = new HashMap<String, String[]>();
+  private String startPosition = "AAA", endPosition = "ZZZ";
+  private int moveCount = 0;
 
   @Override
   public void run() throws FileNotFoundException {
-
     System.out.println();
     long startRun = System.currentTimeMillis();
 
-    Scanner sc = super.getScanner(filename);
+    initSetup();
+    gameLoop();
 
-    moveList = sc.nextLine();
-    sc.nextLine();
-
-    buildMap(sc);
-    sc.close();
-
-    System.out.println("Answer:\t");
+    System.out.println("Answer:\t" + moveCount);
     System.out.println("Time:\t" + (System.currentTimeMillis() - startRun));
 
+  }
+
+  public void gameLoop() {
+    String currentPosition = startPosition;
+    while (!currentPosition.equals(endPosition)) {
+      for (int i = 0; i < moveList.length(); i++) {
+        moveCount++;
+        int nextMove = moveList.charAt(i) == 'L' ? 0 : 1;
+        currentPosition = gameMap.get(currentPosition)[nextMove];
+        if (currentPosition.equals(endPosition))
+          break;
+      }
+    }
   }
 
   private void buildMap(Scanner sc) {
@@ -41,7 +50,6 @@ public class Day08 extends Calendar {
 
     while (sc.hasNextLine()) {
       Matcher m = pattern.matcher(sc.nextLine());
-      Map<String, String[]> mp = new HashMap<>();
 
       String k, l, r;
 
@@ -52,11 +60,18 @@ public class Day08 extends Calendar {
       m.find();
       r = m.group();
 
-      mp.put(k, new String[] { l, r });
-
-      gameMap.add(mp);
+      gameMap.put(k, new String[] { l, r });
 
     }
   }
 
+  private void initSetup() throws FileNotFoundException {
+    Scanner sc = super.getScanner(filename);
+
+    moveList = sc.nextLine();
+    sc.nextLine();
+
+    buildMap(sc);
+    sc.close();
+  }
 }
