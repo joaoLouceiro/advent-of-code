@@ -10,42 +10,38 @@ import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 import aoc2023.Calendar;
+import aoc2023.day08.parts.Part1;
+import aoc2023.day08.parts.Part2;
 
 public class Day08 extends Calendar {
 
   private String filename = "./src/aoc2023/day08/files/Input.txt";
-  private String moveList = "";
-  private Map<String, String[]> gameMap = new HashMap<String, String[]>();
-  private String startPosition = "AAA", endPosition = "ZZZ";
-  private int moveCount = 0;
+  protected String moveList = "";
+  protected Map<String, String[]> gameMap = new HashMap<String, String[]>();
 
   @Override
   public void run() throws FileNotFoundException {
     System.out.println();
     long startRun = System.currentTimeMillis();
 
-    initSetup();
-    gameLoop();
+    Part1 p1 = new Part1();
+    p1.run();
 
-    System.out.println("Answer:\t" + moveCount);
+    System.out.println("Answer part 1:\t" + p1.getMoveCount());
     System.out.println("Time:\t" + (System.currentTimeMillis() - startRun));
 
+    System.out.println();
+
+    startRun = System.currentTimeMillis();
+
+    Part2 p2 = new Part2();
+    p2.run();
+
+    System.out.println("Answer part 2:\t" + p2.getMoveCount());
+    System.out.println("Time:\t" + (System.currentTimeMillis() - startRun));
   }
 
-  public void gameLoop() {
-    String currentPosition = startPosition;
-    while (!currentPosition.equals(endPosition)) {
-      for (int i = 0; i < moveList.length(); i++) {
-        moveCount++;
-        int nextMove = moveList.charAt(i) == 'L' ? 0 : 1;
-        currentPosition = gameMap.get(currentPosition)[nextMove];
-        if (currentPosition.equals(endPosition))
-          break;
-      }
-    }
-  }
-
-  private void buildMap(Scanner sc) {
+  protected void buildMap(Scanner sc) {
     Pattern pattern = Pattern.compile("\\w{3}");
 
     while (sc.hasNextLine()) {
@@ -65,7 +61,7 @@ public class Day08 extends Calendar {
     }
   }
 
-  private void initSetup() throws FileNotFoundException {
+  protected void initSetup() throws FileNotFoundException {
     Scanner sc = super.getScanner(filename);
 
     moveList = sc.nextLine();
