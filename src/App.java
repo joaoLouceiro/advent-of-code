@@ -10,11 +10,12 @@ import aoc2023.day04.Day04;
 import aoc2023.day05.Day05;
 import aoc2023.day06.Day06;
 import aoc2023.day07.Day07;
+import aoc2023.day08.Day08;
 
 public class App {
   public static void main(String[] args) throws Exception {
     // Scanner sc = new Scanner(System.in);
-    pseudoDayFactory(7).run();
+    pseudoDayFactory(8).run();
     // gameLoop(sc);
     // sc.close();
   }
@@ -49,6 +50,8 @@ public class App {
         return new Day06();
       case 7:
         return new Day07();
+      case 8:
+        return new Day08();
       default:
         return new NoDay();
     }
