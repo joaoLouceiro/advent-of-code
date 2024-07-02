@@ -9,6 +9,7 @@ import java.util.stream.Collectors;
 
 import aoc2023.Calendar;
 import aoc2023.day09.parts.Part1;
+import aoc2023.day09.parts.Part2;
 
 public class Day09 extends Calendar {
 
@@ -29,13 +30,13 @@ public class Day09 extends Calendar {
 
     System.out.println();
 
-    // startRun = System.currentTimeMillis();
-    //
-    // Part2 p2 = new Part2();
-    // p2.run();
-    //
-    // System.out.println("Answer part 2:\t" + p2.getMoveCount());
-    // System.out.println("Time:\t" + (System.currentTimeMillis() - startRun));
+    startRun = System.currentTimeMillis();
+
+    Part2 p2 = new Part2();
+    p2.run();
+
+    System.out.println("Answer part 2:\t" + p2.getTotal());
+    System.out.println("Time:\t" + (System.currentTimeMillis() - startRun));
 
   }
 
