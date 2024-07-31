@@ -2,6 +2,7 @@ import java.io.FileNotFoundException;
 import java.util.Scanner;
 
 import aoc2023.Calendar;
+import aoc2023.Calendar_v2;
 import aoc2023.NoDay;
 import aoc2023.day01.Day01;
 import aoc2023.day02.Day02;
@@ -12,11 +13,14 @@ import aoc2023.day06.Day06;
 import aoc2023.day07.Day07;
 import aoc2023.day08.Day08;
 import aoc2023.day09.Day09;
+import aoc2023.day10.Day10;
 
 public class App {
   public static void main(String[] args) throws Exception {
     // Scanner sc = new Scanner(System.in);
-    pseudoDayFactory(9).run();
+    // pseudoDayFactory(9).run();
+    Calendar_v2 c = new Calendar_v2();
+    c.pickDay(9);
     // gameLoop(sc);
     // sc.close();
   }
@@ -55,6 +59,8 @@ public class App {
         return new Day08();
       case 9:
         return new Day09();
+      case 10:
+        return new Day10();
       default:
         return new NoDay();
     }
