@@ -1,19 +1,16 @@
 package aoc2023.day09.parts;
 
-import java.io.FileNotFoundException;
 import java.util.ArrayList;
 import java.util.List;
 
-import aoc2023.day09.Day09;
+import aoc2023.AbstractPart;
 
-public class Part1 extends Day09 {
+public class Part1 extends AbstractPart {
 
   private long total = 0;
 
   @Override
-  public void run() throws FileNotFoundException {
-    super.initSetup();
-
+  public void run(List<List<Long>> sequenceList) {
     sequenceList.forEach(e -> total += buildSequence(e) + e.get(e.size() - 1));
   }
 
@@ -28,6 +25,7 @@ public class Part1 extends Day09 {
     return buildSequence(newSequence) + newSequence.get(newSequence.size() - 1);
   }
 
+  @Override
   public long getTotal() {
     return total;
   }
