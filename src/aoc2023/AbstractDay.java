@@ -2,6 +2,7 @@ package aoc2023;
 
 import java.io.File;
 import java.io.FileNotFoundException;
+import java.lang.reflect.Method;
 import java.util.Scanner;
 
 public abstract class AbstractDay {
@@ -16,6 +17,35 @@ public abstract class AbstractDay {
   public abstract void runPart1();
 
   public abstract void runPart2();
+
+  protected void runPart(AbstractPart part, Object... args) {
+    initSetup();
+    if (part == null) {
+      System.err.println("Part is not initialized");
+      return;
+    }
+
+    try {
+      Method runMethod = null;
+      for (Method method : part.getClass().getMethods()) {
+        if (method.getName().equals("run") && method.getParameterCount() == args.length) {
+          runMethod = method;
+          break;
+        }
+      }
+
+      if (runMethod == null) {
+        throw new NoSuchMethodException("No matching run method found for the given arguments");
+      }
+
+      runMethod.invoke(part, args);
+      this.total = part.getTotal();
+      System.out.println(part.getClass().getSimpleName() + " Total: " + this.total);
+    } catch (Exception e) {
+      System.err.println("Error running " + part.getClass().getSimpleName() + ": " + e.getMessage());
+      e.printStackTrace();
+    }
+  }
 
   /* ============ Getters & Setters ============ */
 

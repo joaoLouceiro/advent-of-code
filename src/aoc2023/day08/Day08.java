@@ -9,43 +9,24 @@ import java.util.Scanner;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
+import aoc2023.AbstractAdventDay;
+import aoc2023.AbstractDay;
 import aoc2023.Calendar;
 import aoc2023.day08.parts.Part1;
 import aoc2023.day08.parts.Part2;
 
-public class Day08 extends Calendar {
+public class Day08 extends AbstractAdventDay {
 
-  private String filename = "./src/aoc2023/day08/files/Input.txt";
-  protected String moveList = "";
-  protected Map<String, String[]> gameMap = new HashMap<String, String[]>();
+  private String moveList = "";
+  private Map<String, String[]> gameMap = new HashMap<String, String[]>();
 
-  @Override
-  public void run() throws FileNotFoundException {
-    System.out.println();
-    long startRun = System.currentTimeMillis();
+  private void initSetup() {
+    moveList = inputLines.get(0);
 
-    Part1 p1 = new Part1();
-    p1.run();
-
-    System.out.println("Answer part 1:\t" + p1.getMoveCount());
-    System.out.println("Time:\t" + (System.currentTimeMillis() - startRun));
-
-    System.out.println();
-
-    startRun = System.currentTimeMillis();
-
-    Part2 p2 = new Part2();
-    p2.run();
-
-    System.out.println("Answer part 2:\t" + p2.getMoveCount());
-    System.out.println("Time:\t" + (System.currentTimeMillis() - startRun));
-  }
-
-  protected void buildMap(Scanner sc) {
     Pattern pattern = Pattern.compile("\\w{3}");
 
-    while (sc.hasNextLine()) {
-      Matcher m = pattern.matcher(sc.nextLine());
+    for (int i = 2; i < inputLines.size(); i++) {
+      Matcher m = pattern.matcher(inputLines.get(i));
 
       String k, l, r;
 
@@ -61,13 +42,19 @@ public class Day08 extends Calendar {
     }
   }
 
-  protected void initSetup() throws FileNotFoundException {
-    Scanner sc = super.getScanner(filename);
+  @Override
+  public String solvePart1() {
+    initSetup();
+    Part1 p1 = new Part1();
+    p1.run(moveList, gameMap);
+    return String.valueOf(p1.getMoveCount());
+  }
 
-    moveList = sc.nextLine();
-    sc.nextLine();
-
-    buildMap(sc);
-    sc.close();
+  @Override
+  public String solvePart2() {
+    initSetup();
+    Part2 p2 = new Part2();
+    p2.run(moveList, gameMap);
+    return String.valueOf(p2.getMoveCount());
   }
 }
