@@ -1,23 +1,23 @@
 package aoc2023.day08.parts;
 
-import java.io.FileNotFoundException;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.stream.Collectors;
 
-import aoc2023.day08.Day08;
-
-public class Part2 extends Day08 {
+public class Part2 {
   private Map<String, Integer> startMap = new HashMap<>();
   private long moveCount = 0;
+  private String moveList;
+  private Map<String, String[]> gameMap;
 
   /*
    * Run initial setup.
    * Besides the steps taken in pt 1, we need a new Map to store all starting
    * positions and respective count.
    */
-  public void run() throws FileNotFoundException {
-    super.initSetup();
+  public void run(String moveList, Map<String, String[]> gameMap) {
+    this.moveList = moveList;
+    this.gameMap = gameMap;
     buildStartMap();
     startMap.entrySet().parallelStream().forEach(m -> gameLoop(m));
     Integer[] moveArray = startMap.values().toArray(new Integer[0]);
@@ -36,7 +36,7 @@ public class Part2 extends Day08 {
     String startPosition = m.getKey();
     boolean isEndPosition = false;
     while (!isEndPosition) {
-      for (int i = 0; i < super.moveList.length(); i++) {
+      for (int i = 0; i < moveList.length(); i++) {
         m.setValue(m.getValue() + 1);
         int nextMove = moveList.charAt(i) == 'L' ? 0 : 1;
         startPosition = gameMap.get(startPosition)[nextMove];
@@ -53,7 +53,7 @@ public class Part2 extends Day08 {
    * Create a Map with the starting position and a counter set to 0.
    */
   private void buildStartMap() {
-    startMap = super.gameMap.keySet().stream().filter(str -> str.charAt(2) == 'A')
+    startMap = gameMap.keySet().stream().filter(str -> str.charAt(2) == 'A')
         .collect(Collectors.toMap(p -> p, p -> 0));
   }
 
