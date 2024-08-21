@@ -1,7 +1,6 @@
 package aoc2023;
 
 import java.nio.file.Files;
-import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.util.List;
 
@@ -10,7 +9,6 @@ public abstract class AbstractAdventDay implements AdventDay {
 
   public void parseInput(String filename) {
     try {
-      Path p = Paths.get(filename);
       inputLines = Files.readAllLines(Paths.get(filename));
       int i = 1;
     } catch (Exception e) {

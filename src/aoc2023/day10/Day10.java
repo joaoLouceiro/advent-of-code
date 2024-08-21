@@ -1,24 +1,25 @@
 package aoc2023.day10;
 
-import aoc2023.AbstractDay;
+import aoc2023.AbstractAdventDay;
 
-public class Day10 extends AbstractDay {
+import java.nio.file.Path;
 
-  @Override
-  public void initSetup() {
-    this.setFilename("./src/aoc2023/day09/files/Input.txt");
+public class Day10 extends AbstractAdventDay {
+
+  private void initSetup() {
+
   }
 
   @Override
-  public void runPart1() {
+  public String solvePart1() {
     // TODO Auto-generated method stub
-    throw new UnsupportedOperationException("Unimplemented method 'runPart1'");
+    throw new UnsupportedOperationException("Unimplemented method 'solvePart1'");
   }
 
   @Override
-  public void runPart2() {
+  public String solvePart2() {
     // TODO Auto-generated method stub
-    throw new UnsupportedOperationException("Unimplemented method 'runPart2'");
+    throw new UnsupportedOperationException("Unimplemented method 'solvePart2'");
   }
 
 }
