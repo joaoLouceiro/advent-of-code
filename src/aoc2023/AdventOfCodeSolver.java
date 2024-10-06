@@ -5,6 +5,7 @@ import java.util.Map;
 
 import aoc2023.day08.Day08;
 import aoc2023.day09.Day09;
+import aoc2023.day10.Day10;
 
 public class AdventOfCodeSolver {
   private Map<Integer, AdventDay> days;
@@ -13,6 +14,7 @@ public class AdventOfCodeSolver {
     days = new HashMap<>();
     days.put(8, new Day08());
     days.put(9, new Day09());
+    days.put(10, new Day10());
   }
 
   public void solve(int day) {
