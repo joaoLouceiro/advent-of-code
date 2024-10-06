@@ -56,4 +56,9 @@ public class Vertex {
     this.label = label;
   }
 
+  @Override
+  public String toString() {
+    return "Vertex [x=" + x + ", y=" + y + "]";
+  }
+
 }
